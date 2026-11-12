@@ -133,6 +133,7 @@ footer .fecha{font-size:62px}
     <div id="s3" class="ok" hidden>
       <p class="fecha" id="finTitulo">Gracias</p>
       <p id="fin" class="texto"></p>
+      <p class="texto" style="margin-top:34px;font-size:16px">Lista de novios: <a href="https://novios.falabella.com/info-evento/evento?codigoEvento=2106844" target="_blank" rel="noopener" style="color:inherit;border-bottom:1px solid var(--tinta);text-decoration:none">Novios Falabella, código 2106844</a></p>
     </div>
   </section>
 
@@ -144,7 +145,7 @@ footer .fecha{font-size:62px}
 </main>
 
 <script>
-const P=[["Francisca","Juan Pablo","todo"]];
+const P=[["Fran","Juampa","todo"]];
 const LUGAR={ceremonia:"Lo Pinto",cocktail:"Lo Pinto",fiesta:"Lo Pinto"};
 const ARTICULO={ceremonia:"una ceremonia",cocktail:"un cocktail",fiesta:"una fiesta"};
 const INCLUYE={ceremonia:["ceremonia","cocktail","fiesta"],cocktail:["cocktail","fiesta"],fiesta:["fiesta"]};
@@ -176,9 +177,9 @@ function programa(){
   const [a,b,t]=P[ix];
   const nom=b?a+' y '+b:a, inv=b?'Los queremos invitar':'Te queremos invitar';
   const ficha=(tit,dir,p)=>`<div class="pie1"><b>${tit}</b><span>${dir}</span><span><a href="${p.wz}" target="_blank" rel="noopener">Waze</a> &middot; <a href="${p.gm}" target="_blank" rel="noopener">Google Maps</a></span></div>`;
-  const lista='<div class="pie1"><b>Lista de novios</b><span>Novios Falabella, código 2106844</span></div>';
+  const lista='<div class="pie1"><b>Lista de novios</b><span>Novios Falabella, código 2106844</span><span><a href="https://novios.falabella.com/info-evento/evento?codigoEvento=2106844" target="_blank" rel="noopener">Ver lista</a></span></div>';
   $('prog').innerHTML=t==='todo'
-    ?`<p class="l2">Hola ${nom},</p><p class="l2">${inv} a acompañarnos en este día tan especial a una ceremonia en la Capilla del Sagrado Corazón de Jesús el <b>sábado 9 de enero</b> a las <b>13:00 hrs en punto</b>.</p><p class="l2">Y después, a un cocktail, comida y fiesta en Lo Pinto.</p><div class="pie">${ficha('Dirección capilla','Av. Pedro de Valdivia 425, Providencia',CAP)}${ficha('Dirección Lo Pinto','Lampa, Región Metropolitana',LP)}${lista}</div>`
+    ?`<p class="l2">Hola ${nom},</p><p class="l2">${inv} a acompañarnos en este día tan especial a una ceremonia religiosa en la Capilla del Sagrado Corazón de Jesús el día <b>sábado 9 de enero</b> a las <b>13:00 hrs en punto</b>, y después a una recepción en Camino Interior Lo Solar, Lampa.</p><div class="pie">${ficha('Dirección capilla','Av. Pedro de Valdivia 425, Providencia',CAP)}${ficha('Dirección recepción','Camino Interior Lo Solar, Lampa',LP)}${lista}</div>`
     :`<p class="l2">Hola ${nom},</p><p class="l2">${inv} a acompañarnos en este día tan especial a una ceremonia en la Capilla del Sagrado Corazón de Jesús el <b>sábado 9 de enero</b> a las <b>13:00 hrs en punto</b>.</p><p class="l2">Y a una fiesta desde las <b>17:30 hrs</b> en Lo Pinto.</p><div class="pie">${ficha('Dirección capilla','Av. Pedro de Valdivia 425, Providencia',CAP)}${ficha('Dirección Lo Pinto','Lampa, Región Metropolitana',LP)}${lista}</div>`;
 }
 
