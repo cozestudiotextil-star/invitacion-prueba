@@ -94,7 +94,6 @@ section{padding:0 0 104px;text-align:center}
   <div class="fichas" style="margin-top:0">
     <div class="ficha"><b>Capilla</b>Av. Pedro de Valdivia 425, Providencia<br><a id="capwz" target="_blank" rel="noopener">Waze</a> &nbsp;·&nbsp; <a id="capgm" target="_blank" rel="noopener">Google Maps</a></div>
     <div class="ficha"><b>Recepción</b>Camino Interior Lo Solar, Lampa<br><a id="lpwz" target="_blank" rel="noopener">Waze</a> &nbsp;·&nbsp; <a id="lpgm" target="_blank" rel="noopener">Google Maps</a></div>
-    <div class="ficha"><b>Vestimenta</b>Formal</div>
     <div class="ficha"><b>Lista de novios</b>Novios Falabella, código 2106844<br><a id="nov" target="_blank" rel="noopener">Ver lista</a></div>
   </div>
 </section>
@@ -218,7 +217,7 @@ function final(){
   $('sub').hidden=true;
   const nos=E.pers.map(p=>p.nombre);
   const msg=E.op==='no'?'Gracias por avisarnos.':(E.pers.length>1?'Quedó confirmada la asistencia de '+nos[0]+' y '+nos[1]+'.':'Quedó confirmada la asistencia de '+nos[0]+'.');
-  $('paso').innerHTML=`<div class="ok" style="text-align:center"><p class="gracias">${E.op==='no'?'Gracias':'Listo'}</p><p class="texto">${esc(msg)}</p>
+  $('paso').innerHTML=`<div class="ok" style="text-align:center"><p class="gracias">${E.op==='no'?'Gracias':'Listo'}</p><p class="texto">${esc(msg)}</p>${E.op==='no'?'':'<p class="texto" style="margin-top:26px;font-size:14px">Te esperamos el 9 de enero.<br>Dress code: formal.</p>'}
    <p class="lista">Lista de novios: <a href="${U.nov}" target="_blank" rel="noopener">Novios Falabella</a></p></div>`;
 }
 paso1();
