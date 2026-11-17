@@ -73,6 +73,7 @@ section{padding:0 0 104px;text-align:center}
 .mas{display:block;margin:30px auto 0;text-decoration:none;color:var(--suave);font-size:10.5px;letter-spacing:.34em;padding-left:.34em;text-transform:uppercase;font-weight:400}
 .mas svg{display:block;margin:14px auto 0;width:15px;height:26px;fill:none;stroke:var(--acc);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
 html{scroll-behavior:smooth}
+.otras{margin-top:30px;display:grid;gap:8px;justify-items:center}.otra{background:none;border:0;border-bottom:1px solid var(--linea);color:var(--suave);font:inherit;font-size:13px;cursor:pointer;padding:2px 0}.otra:hover{color:var(--tinta)}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -170,16 +171,16 @@ function paso1(){
   };
 }
 function paso2(){
-  $('sub').textContent='¿Nos acompañan?';$('sub').hidden=false;
+  $('sub').hidden=true;
   const a=E.n1,b=E.n2;
-  const o=b?[['dos','Confirmamos los dos'],['a','Solo va '+a],['b','Solo va '+b],['no','No podemos ir']]:[['yo','Confirmo mi asistencia'],['no','No puedo ir']];
-  $('paso').innerHTML=o.map(([k,t])=>`<button type="button" class="opt ${E.op===k?'sel':''}" data-o="${k}">${esc(t)}</button>`).join('')
-   +'<button type="button" class="btn lleno" id="sig2" '+(E.op?'':'hidden')+'>Seguir</button><div style="text-align:center"><button type="button" class="volver" id="v1">Volver</button></div>';
-  $('paso').querySelectorAll('.opt').forEach(bt=>bt.onclick=()=>{E.op=bt.dataset.o;
-    $('paso').querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));bt.classList.add('sel');
-    $('sig2').hidden=false;$('sig2').textContent=E.op==='no'?'Enviar':'Seguir'});
-  $('sig2').onclick=()=>{ if(E.op==='no'){E.pers=[];enviar();} else paso3(); };
-  $('v1').onclick=paso1;
+  const ir=k=>{E.op=k; if(k==='no'){E.pers=[];enviar();} else paso3();};
+  const sec=b?[['a','Solo va '+a],['b','Solo va '+b],['no','No podemos ir']]:[['no','No puedo ir']];
+  $('paso').innerHTML='<button type="button" class="btn lleno" id="si" style="margin-top:0">'+(b?'Confirmamos los dos':'Confirmo mi asistencia')+'</button>'
+   +'<div class="otras">'+sec.map(([k,x])=>'<button type="button" class="otra" data-o="'+k+'">'+esc(x)+'</button>').join('')+'</div>'
+   +'<div style="text-align:center"><button type="button" class="volver" id="v1">Volver</button></div>';
+  $('si').onclick=()=>ir(b?'dos':'yo');
+  $('paso').querySelectorAll('.otra').forEach(x=>x.onclick=()=>ir(x.dataset.o));
+  $('v1').onclick=()=>{$('sub').hidden=false;paso1()};
 }
 function paso3(){
   const quienes=E.op==='dos'?[E.n1,E.n2]:E.op==='b'?[E.n2]:[E.n1];
