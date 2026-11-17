@@ -24,6 +24,7 @@ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000
 section{padding:0 0 104px;text-align:center}
 #detalles,#mapas{scroll-margin-top:72px}
 #confirmar{min-height:100vh;min-height:100svh}
+#etconf{scroll-margin-top:28px}
 .et{margin:0 0 36px;font-size:10.5px;letter-spacing:.38em;padding-left:.38em;text-transform:uppercase;color:var(--suave);font-weight:400}
 .texto{font-size:15px;line-height:2;margin:0 auto;max-width:330px;text-wrap:balance}
 .texto b{font-weight:500}
@@ -76,7 +77,6 @@ section{padding:0 0 104px;text-align:center}
 .mas svg{display:block;margin:14px auto 0;width:15px;height:26px;fill:none;stroke:var(--acc);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
 html{scroll-behavior:smooth}
 .otras{margin-top:30px;display:grid;gap:8px;justify-items:center}.otra{background:none;border:0;border-bottom:1px solid var(--linea);color:var(--suave);font:inherit;font-size:13px;cursor:pointer;padding:2px 0}.otra:hover{color:var(--tinta)}
-.papel{position:absolute;pointer-events:none;will-change:transform,opacity}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -93,7 +93,7 @@ html{scroll-behavior:smooth}
 
 <section id="confirmar">
   <p class="texto" style="margin-bottom:104px">Te esperamos el <b>9 de enero</b> a las <b style="white-space:nowrap">12:45 hrs</b> en la Capilla del Sagrado Corazón de Jesús, y después a celebrar en Camino Interior Lo Solar, Lampa.</p>
-  <p class="et" style="color:var(--acc);font-size:12px;font-weight:500;margin-bottom:30px">Confirma tu asistencia</p>
+  <p class="et" id="etconf" style="color:var(--acc);font-size:12px;font-weight:500;margin-bottom:30px">Confirma tu asistencia</p>
   <p class="sub" id="sub" style="margin-top:0"></p>
   <div id="paso" class="campoin"></div>
 </section>
@@ -221,20 +221,6 @@ async function enviar(){
     else alert('No pudimos enviar tu respuesta. Intenta de nuevo.');
   }
 }
-function confeti(){
-  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  const ok=document.querySelector('.ok');if(!ok)return;
-  const W=ok.clientWidth;
-  for(let i=0;i<16;i++){
-    const p=document.createElement('span');p.className='papel';
-    const a=3+Math.random()*3,b=a*(Math.random()<.5?1:2.1);
-    p.style.cssText='width:'+a.toFixed(1)+'px;height:'+b.toFixed(1)+'px;background:#803f50;left:'+(W*.18+Math.random()*W*.64).toFixed(0)+'px;top:'+(24+Math.random()*30).toFixed(0)+'px;opacity:0';
-    ok.appendChild(p);
-    const dx=(Math.random()-.5)*110,dy=120+Math.random()*130,rot=(Math.random()-.5)*620;
-    const an=p.animate([{transform:'translate(0,0) rotate(0deg)',opacity:0},{opacity:1,offset:.12},{transform:'translate('+dx.toFixed(0)+'px,'+dy.toFixed(0)+'px) rotate('+rot.toFixed(0)+'deg)',opacity:0}],{duration:1700+Math.random()*1000,delay:Math.random()*350,easing:'cubic-bezier(.25,.6,.4,1)',fill:'forwards'});
-    an.onfinish=()=>p.remove();
-  }
-}
 function final(){
   $('sub').hidden=true;
   const no=E.op==='no', n=E.pers.length;
@@ -243,7 +229,7 @@ function final(){
   $('paso').innerHTML=no
    ?'<div class="ok" style="text-align:center"><p class="gracias">Gracias</p><p class="texto">Gracias por avisarnos.</p></div>'
    :'<div class="ok" style="text-align:center"><p class="gracias">Listo</p><p class="texto" style="margin-top:4px">'+(n>1?'Los':'Te')+' esperamos el <b>9 de enero</b></p><p class="sutil">Dress code: formal</p>'+FOTO+FLECHA+'</div>';
-  setTimeout(()=>{const s=$('confirmar');if(s&&s.scrollIntoView)s.scrollIntoView({behavior:'smooth',block:'start'});if(!no)confeti();},120);
+  setTimeout(()=>{const s=$('etconf');if(s&&s.scrollIntoView)s.scrollIntoView({behavior:'smooth',block:'start'});},120);
 }
 paso1();
 </script>
