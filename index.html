@@ -23,7 +23,7 @@ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000
 .fecha{margin:26px 0 0;font-size:11px;letter-spacing:.38em;padding-left:.38em;color:var(--suave)}
 section{padding:0 0 104px;text-align:center}
 #detalles,#mapas{scroll-margin-top:72px}
-#confirmar{min-height:100vh;min-height:100svh}
+#confirmar{min-height:100vh;min-height:100svh;padding-bottom:70vh;padding-bottom:70svh}
 #etconf{scroll-margin-top:28px}
 .et{margin:0 0 36px;font-size:10.5px;letter-spacing:.38em;padding-left:.38em;text-transform:uppercase;color:var(--suave);font-weight:400}
 .texto{font-size:15px;line-height:2;margin:0 auto;max-width:330px;text-wrap:balance}
@@ -93,9 +93,11 @@ html{scroll-behavior:smooth}
 
 <section id="confirmar">
   <p class="texto" style="margin-bottom:104px">Te esperamos el <b>9 de enero</b> a las <b style="white-space:nowrap">12:45 hrs</b> en la Capilla del Sagrado Corazón de Jesús, y después a celebrar en Camino Interior Lo Solar, Lampa.</p>
+  <div id="bloque">
   <p class="et" id="etconf" style="color:var(--acc);font-size:12px;font-weight:500;margin-bottom:30px">Confirma tu asistencia</p>
   <p class="sub" id="sub" style="margin-top:0"></p>
   <div id="paso" class="campoin"></div>
+  </div>
 </section>
 
 <section id="detalles">
@@ -152,6 +154,7 @@ const limpio=s=>s.replace(/\s+/g,' ').trim();
 const primero=s=>limpio(s).split(' ')[0];
 const E={n1:'',n2:'',sin:false,op:null,pers:[],enviando:false};
 
+function alTitulo(){setTimeout(()=>{const b=$('bloque'),e=$('etconf');if(!b||!e)return;const h=window.innerHeight;if(b.getBoundingClientRect().height<h-60)b.scrollIntoView({behavior:'smooth',block:'center'});else e.scrollIntoView({behavior:'smooth',block:'start'});},60)}
 function paso1(){
   $('sub').textContent='Escribe tu nombre completo y el de tu acompañante, si vas con alguien.';
   $('sub').hidden=false;
@@ -170,20 +173,20 @@ function paso1(){
     if(E.n1.length<3||!E.n1.includes(' '))return err('Escribe tu nombre y apellido.');
     if(!E.sin&&!E.n2)return err('Escribe el nombre de tu acompañante o toca “Voy sin acompañante”.');
     if(!E.sin&&!E.n2.includes(' '))return err('Escribe el nombre y apellido de tu acompañante.');
-    paso2();
+    paso2();alTitulo();
   };
 }
 function paso2(){
   $('sub').hidden=true;
   const a=E.n1,b=E.n2;
-  const ir=k=>{E.op=k; if(k==='no'){E.pers=[];enviar();} else paso3();};
+  const ir=k=>{E.op=k; if(k==='no'){E.pers=[];enviar();} else{paso3();alTitulo()}};
   const sec=b?[['a','Solo va '+a],['b','Solo va '+b],['no','No podemos ir']]:[['no','No puedo ir']];
   $('paso').innerHTML='<button type="button" class="btn lleno" id="si" style="margin-top:0">'+(b?'Confirmamos los dos':'Confirmo mi asistencia')+'</button>'
    +'<div class="otras">'+sec.map(([k,x])=>'<button type="button" class="otra" data-o="'+k+'">'+esc(x)+'</button>').join('')+'</div>'
    +'<div style="text-align:center"><button type="button" class="volver" id="v1">Volver</button></div>';
   $('si').onclick=()=>ir(b?'dos':'yo');
   $('paso').querySelectorAll('.otra').forEach(x=>x.onclick=()=>ir(x.dataset.o));
-  $('v1').onclick=()=>{$('sub').hidden=false;paso1()};
+  $('v1').onclick=()=>{$('sub').hidden=false;paso1();alTitulo()};
 }
 function paso3(){
   const quienes=E.op==='dos'?[E.n1,E.n2]:E.op==='b'?[E.n2]:[E.n1];
@@ -198,7 +201,7 @@ function paso3(){
     const p=E.pers[+bt.dataset.i];p[bt.dataset.k]=bt.dataset.v;
     $('paso').querySelectorAll(`[data-i="${bt.dataset.i}"][data-k="${bt.dataset.k}"]`).forEach(x=>x.classList.remove('sel'));bt.classList.add('sel');
   });
-  $('v2').onclick=paso2;
+  $('v2').onclick=()=>{paso2();alTitulo()};
   $('env').onclick=()=>{
     if(E.pers.some(p=>!p.menu||!p.alcohol)){$('err').textContent='Falta marcar el menú y el alcohol de cada invitado.';$('err').hidden=false;return}
     enviar();
