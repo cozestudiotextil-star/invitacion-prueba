@@ -209,7 +209,7 @@ function paso3(){
 async function enviar(){
   if(E.enviando)return;E.enviando=true;
   const btn=$('env')||$('sig2');if(btn){btn.disabled=true;btn.textContent='Enviando…'}
-  const asistencia='Ceremonia + fiesta · '+{dos:'Los dos',a:'Solo '+E.n1,b:'Solo '+E.n2,yo:'Sí',no:'No'}[E.op];
+  const asistencia='Fiesta · '+{dos:'Los dos',a:'Solo '+E.n1,b:'Solo '+E.n2,yo:'Sí',no:'No'}[E.op];
   const payload={nombre:E.n1,acompanante:E.sin?'':E.n2,asistencia,op:E.op,evento:'ceremonia+fiesta',
     personas:E.pers.map(p=>({nombre:p.nombre,menu:p.menu,alcohol:p.alcohol})),enviado:new Date().toISOString()};
   try{
