@@ -198,8 +198,8 @@ function paso3(){
 async function enviar(){
   if(E.enviando)return;E.enviando=true;
   const btn=$('env')||$('sig2');if(btn){btn.disabled=true;btn.textContent='Enviando…'}
-  const asistencia='Fiesta sin acompañante · '+{dos:'Los dos',a:'Solo '+E.n1,b:'Solo '+E.n2,yo:'Sí',no:'No'}[E.op];
-  const payload={nombre:E.n1,acompanante:E.sin?'':E.n2,asistencia,op:E.op,evento:'fiesta-individual',
+  const asistencia='Fiesta · '+{dos:'Los dos',a:'Solo '+E.n1,b:'Solo '+E.n2,yo:'Sí',no:'No'}[E.op];
+  const payload={nombre:E.n1,acompanante:E.sin?'----':E.n2,asistencia,op:E.op,evento:'fiesta-individual',
     personas:E.pers.map(p=>({nombre:p.nombre,menu:p.menu,alcohol:p.alcohol})),enviado:new Date().toISOString()};
   try{
     if(ENDPOINT){await fetch(ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})}
