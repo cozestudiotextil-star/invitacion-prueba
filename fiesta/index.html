@@ -223,7 +223,7 @@ function final(){
   const FLECHA='<a class="mas" href="#detalles" style="margin-top:122px">Ver más detalles<svg viewBox="0 0 16 28" aria-hidden="true"><path d="M8 1 V26 M2 19 L8 26 L14 19"/></svg></a>';
   $('paso').innerHTML=no
    ?'<div class="ok" style="text-align:center"><p class="gracias">Gracias</p><p class="texto">Gracias por avisarnos.</p></div>'
-   :'<div class="ok" style="text-align:center"><p class="gracias">Listo</p><p class="texto" style="margin-top:4px">'+(n>1?'Los':'Te')+' esperamos el <b>9 de enero</b></p><p class="sutil">Desde las 17:30 hrs</p>'+FOTO+FLECHA+'</div>';
+   :'<div class="ok" style="text-align:center"><p class="gracias">Listo</p><p class="texto" style="margin-top:4px">'+(n>1?'Los':'Te')+' esperamos el <b>9 de enero</b></p><p class="sutil">Dress code: formal</p>'+FOTO+FLECHA+'</div>';
   setTimeout(()=>{const s=$('etconf');if(s&&s.scrollIntoView)s.scrollIntoView({behavior:'smooth',block:'start'});},120);
 }
 paso1();
